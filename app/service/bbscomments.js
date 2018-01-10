@@ -30,6 +30,10 @@ async findByInfoId(info_id) {
     data.create_time = ctx.helper.currentDateTime();
     // 新增数据
     const result = await app.mysql.insert('bbs_comments', data);
+    if(result.affectedRows > 0){
+	    let sql = "UPDATE bbs_infos SET update_time = '" + data.create_time + "' WHERE id = "+ data.info_id;
+  		await this.app.mysql.query(sql);
+    }
     return {
       insertId: result.insertId, // 添加返回的ID
       error_code: result.affectedRows > 0 ? 0 : 1,
