@@ -14,7 +14,7 @@
 
 ```bash
 # 克隆项目
-$ git clone https://github.com/sky185959/bussinessApi.git
+$ git clone https://github.com/guangdog/vrApi.git
 # 安装依赖，由于网络问题，建议用淘宝镜像安装较快(npm install --registry=https://registry.npm.taobao.org)
 $ npm install
 $ npm run dev
