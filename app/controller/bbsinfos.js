@@ -7,7 +7,9 @@ class BbsInfosController extends Controller {
     // ctx, service属性挂在 this
     const { ctx, service } = this;
     const limit = ctx.request.query.limit;
-    const result = await service.bbsinfos.getList(limit);
+    const byCreateTime = ctx.request.query.byCreateTime;
+    const byUpdateTime = ctx.request.query.byUpdateTime;
+    const result = await service.bbsinfos.getList(limit,byCreateTime,byUpdateTime);
     ctx.body = result;
     ctx.status = 200;
   }
