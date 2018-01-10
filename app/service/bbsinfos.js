@@ -5,13 +5,22 @@ const Service = require('egg').Service;
 class BbsInfosService extends Service {
 
   // 获取所有数据
-  async getList(limit) {
+  async getList(limit,byCreateTime,byUpdateTime) {
     let result =null;
-    if (limit){
+    if (limit && !byCreateTime && !byUpdateTime){
       const sql = " select * from bbs_infos order by id desc LIMIT "+ limit;
       result = await this.app.mysql.query(sql);
-
-    }else{
+    }
+    else if(limit && byCreateTime && !byUpdateTime){
+    	console.log('1')
+    	const sql = " select * from bbs_infos order by create_time desc LIMIT "+ limit;
+      result = await this.app.mysql.query(sql);
+    }
+    else if(limit && !byCreateTime &&  byUpdateTime){
+    	const sql = " select * from bbs_infos order by update_time desc LIMIT "+ limit;
+      result = await this.app.mysql.query(sql);
+    }
+    else{
       result = await this.app.mysql.select('bbs_infos', {
         orders: [[ 'id', 'desc' ]], // 排序方式
       });
@@ -20,7 +29,7 @@ class BbsInfosService extends Service {
     return { data: result };
   }
 
-// 分页获取数据
+// 帖子按照分类，标题模糊查询
 async getListWithPage(page, pageSize, category_id,title) {
   let result = null;
   const limit = parseInt(pageSize);
