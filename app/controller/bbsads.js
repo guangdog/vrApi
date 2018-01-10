@@ -39,7 +39,6 @@ class BbsadsController extends Controller {
       id: { type: 'string', required: true },
       tooltip: { type: 'string', required: true },
       url: { type: 'string', required: true },
-     
     });
     const result = await service.bbsads.updateModel(ctx.request.body);
     ctx.body = result;
