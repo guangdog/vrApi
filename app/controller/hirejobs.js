@@ -6,7 +6,8 @@ class HireJobsController extends Controller {
   async list() {
     // ctx, service属性挂在 this
     const { ctx, service } = this;
-    const result = await service.hirejobs.getList();
+    const limit = ctx.request.query.limit;
+    const result = await service.hirejobs.getList(limit);
     ctx.body = result;
     ctx.status = 200;
   }
