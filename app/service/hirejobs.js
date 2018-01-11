@@ -4,10 +4,16 @@ const Service = require('egg').Service;
 
 class HireJobsService extends Service{
     // 获取所有数据
-  async getList() {
-    const result = await this.app.mysql.select('hire_jobs', {
-      orders: [[ 'id', 'desc' ]], // 排序方式
-    });
+  async getList(limit) {
+  	let result = null;
+  	if(limit){
+  		let sql = " select * from hire_jobs LIMIT "+ limit;
+  		result = await this.app.mysql.query(sql);
+  	}else{
+      result = await this.app.mysql.select('hire_jobs', {
+        orders: [[ 'id', 'desc' ]], // 排序方式
+      }); 		
+  	}
     return { data: result };
   }
 
