@@ -5,16 +5,21 @@ const Service = require('egg').Service;
 class LoginService extends Service {
   // 根据用户名和密码登录
   async login(username, password) {
+  	const { ctx, app } = this;
     const result = await this.app.mysql.get('common_users', { username, password });
-    if (username === 'admin') {
-      return {      
-        name: 'admin',
-        data: result,
-        introduction: '我是超级管理员',
-        token: 'admin',
-        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-      };
-    }
+//  if (username === 'admin') {
+//    return {      
+//      name: 'admin',
+//      data: result,
+//      introduction: '我是超级管理员',
+//      token: 'admin',
+//      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+//    };
+//  }
+		return {
+			code: result ? result.id + '/' + Math.floor(Math.random()*9001+1000) + '/' + new Date().getTime() : 0,
+			error_code: result ? 0 : 1,
+		}
   }
   // 用户根据用户名登录接口
   async LoginByName(username, password) {
