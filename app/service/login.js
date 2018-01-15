@@ -17,7 +17,7 @@ class LoginService extends Service {
 //    };
 //  }
 		return {
-			code: result ? result.id + '/' + Math.floor(Math.random()*9001+1000) + '/' + new Date().getTime() : 0,
+			token: result ? result.id + '/' + Math.floor(Math.random()*9001+1000) + '/' + new Date().getTime() : 0,
 			error_code: result ? 0 : 1,
 		}
   }
